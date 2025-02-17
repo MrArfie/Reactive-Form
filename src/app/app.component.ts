@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -12,28 +12,31 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'form-app';
-  
-  // Variables to store user inputs
-  userName: string = "";  
-  email: string = "";
-  age: number | null = null;
-  address: string = "";
-  submitted: boolean = false;
 
-  // Define form group and form controls
+  // Define form group and form controls with validation
   formdata: FormGroup = new FormGroup({
-    userName: new FormControl(""),
-    email: new FormControl(""),
-    age: new FormControl(""),
-    address: new FormControl("")
+    userName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    age: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100)]),
+    address: new FormControl('', [Validators.required, Validators.minLength(10)])
   });
 
+  // Variable to track form submission
+  submitted: boolean = false;
+
+  // Getters for easier validation checking in template
+  get userName() { return this.formdata.get('userName'); }
+  get email() { return this.formdata.get('email'); }
+  get age() { return this.formdata.get('age'); }
+  get address() { return this.formdata.get('address'); }
+
   // Function to handle form submission
-  onClickSubmit(data: { userName: string; email: string; age: number; address: string }) {
-    this.userName = data.userName;
-    this.email = data.email;
-    this.age = data.age;
-    this.address = data.address;
-    this.submitted = true; // Display the output
+  onClickSubmit() {
+    this.submitted = true;
+    if (this.formdata.valid) {
+      console.log('Form Submitted Successfully:', this.formdata.value);
+    } else {
+      console.log('Form Invalid! Please check the fields.');
+    }
   }
 }

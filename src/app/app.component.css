@@ -1,4 +1,4 @@
-/* Full-page centering using flexbox */
+/* Make sure the body and HTML take the full height */
 body, html {
     font-family: 'Arial', sans-serif;
     background-color: #f4f7f6;
@@ -6,11 +6,11 @@ body, html {
     padding: 0;
     height: 100vh;
     display: flex;
-    justify-content: center;  /* Centers horizontally */
-    align-items: center;  /* Centers vertically */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
   }
   
-  /* Wrapper to center everything */
+  /* Full wrapper to ensure proper centering */
   .wrapper {
     display: flex;
     justify-content: center;
@@ -94,7 +94,15 @@ body, html {
     transform: translateY(-2px);
   }
   
-  /* Output message styling */
+  /* Error message styling */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  /* Output message */
   .output {
     margin-top: 20px;
     color: green;
@@ -112,9 +120,6 @@ body, html {
   
   /* Responsive design */
   @media (max-width: 500px) {
-    .wrapper {
-      width: 100%;
-    }
     .container {
       width: 90%;
     }
